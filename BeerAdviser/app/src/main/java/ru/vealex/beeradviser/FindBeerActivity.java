@@ -10,7 +10,10 @@ import android.widget.Spinner;
 
 import android.widget.TextView;
 
+import java.util.List;
+
 public class FindBeerActivity extends AppCompatActivity {
+    private BeerExpert expert = new BeerExpert();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +29,13 @@ public class FindBeerActivity extends AppCompatActivity {
         Spinner color = (Spinner) findViewById(R.id.color);
         //Получить вариант, выбранный в Spinner
         String beerType = String.valueOf(color.getSelectedItem());
-        //Вывести выбранный вариант
-        brands.setText(beerType);
+        //Получить рекомендации от класса BeerExpert
+        List<String> beerList = expert.getBrands(beerType);
+        StringBuilder formattedBrand = new StringBuilder();
+        for (String brand: beerList) {
+            formattedBrand.append(brand).append('\n');
+        }
+        //Вывести сорта пива
+        brands.setText(formattedBrand);
     }
 }
