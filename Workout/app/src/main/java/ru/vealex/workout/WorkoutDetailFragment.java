@@ -2,6 +2,8 @@ package ru.vealex.workout;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -14,6 +16,14 @@ import android.widget.TextView;
 
 public class WorkoutDetailFragment extends Fragment {
     private long workoutid;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            workoutid = savedInstanceState.getLong("workoutid");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,6 +42,11 @@ public class WorkoutDetailFragment extends Fragment {
             TextView description = (TextView) getView().findViewById(R.id.textDescription);
             description.setText(workout.getDescription());
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putLong("workoutid", workoutid);
     }
 
     public void setWorkout(long id) {
